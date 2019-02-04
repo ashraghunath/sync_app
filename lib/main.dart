@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
           title: Text("Player"),
         ),
         body: songsGot? ListView.builder(
-          itemCount: _songs.length,
+          itemCount: songsGot? _songs.length : 0,
           itemBuilder: (context, int index)
           {
             return ListTile(
@@ -77,7 +77,10 @@ class _MyAppState extends State<MyApp> {
               onTap: () => action(_songs[index].uri),
             );
           },
-        ) : CircularProgressIndicator(),
+        ) : Center(
+            child: CircularProgressIndicator(
+          value: null,strokeWidth: 2.0,backgroundColor: Colors.blue,),
+        )
       );
     }
 
