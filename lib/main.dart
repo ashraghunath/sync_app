@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flute_music_player/flute_music_player.dart';
+import 'package:sync_app/page.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MApp());
 
 enum PlayerState { stopped, playing, paused }
 
@@ -26,7 +27,7 @@ class _MyAppState extends State<MyApp> {
 
   void initPlayer() async {
     audioPlayer = new MusicFinder();
-    var songs = await MusicFinder.allSongs();
+    List<dynamic> songs = await MusicFinder.allSongs();
     songsGot = true;
     songs = new List.from(songs);
 
@@ -65,21 +66,24 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text("Player"),
         ),
-        body: songsGot? ListView.builder(
-          itemCount: songsGot? _songs.length : 0,
-          itemBuilder: (context, int index)
-          {
-            return ListTile(
-              leading: new CircleAvatar(
-                child: Text(_songs[index].title[0]),
+        body: Center(
+          child: songsGot? ListView.builder(
+            itemCount: songsGot? _songs.length : 0,
+            itemBuilder: (context, int index)
+            {
+              return ListTile(
+                leading: new CircleAvatar(
+                  child: Text(_songs[index].title[0]),
+                ),
+                title: Text(_songs[index].title[0]),
+                onTap: () => action(_songs[index].uri),
+              );
+            },
+          ) : Center(
+              child: CircularProgressIndicator(
+
               ),
-              title: Text(_songs[index].title[0]),
-              onTap: () => action(_songs[index].uri),
-            );
-          },
-        ) : Center(
-            child: CircularProgressIndicator(
-          value: null,strokeWidth: 2.0,backgroundColor: Colors.blue,),
+          ),
         )
       );
     }
