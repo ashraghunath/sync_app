@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flute_music_player/flute_music_player.dart';
 import 'package:sync_app/page.dart';
 
-void main() => runApp(MApp());
+void main() => runApp(MyApp());
 
 enum PlayerState { stopped, playing, paused }
 
@@ -76,7 +76,9 @@ class _MyAppState extends State<MyApp> {
                   child: Text(_songs[index].title[0]),
                 ),
                 title: Text(_songs[index].title[0]),
-                onTap: () => action(_songs[index].uri),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => Page(_songs[index].uri, _songs[index].albumArt)))
+//                    action(_songs[index].uri)
+                ,
               );
             },
           ) : Center(
